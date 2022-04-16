@@ -101,6 +101,24 @@ let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [par
 let ch4 = new CommandHelper(["!", "！"], [], "帮助", [ci]);
 ```
 
+### 添加和删除指令
+
+```add()```添加指令
+
+```del()```删除指令（参数为指令格式中的一种指令字符串）
+
+```javascript
+let ch3 = new CommandHelper(["!", "！"], [], "帮助");
+let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_user, param_mode]);
+// 添加指令
+ch3.add(ci);
+// 删除指令
+ch3.del("set");
+// !bind和!setid也不再可用
+```
+
+
+
 
 
 ### 指令格式 CommandInfo

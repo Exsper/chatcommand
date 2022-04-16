@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "console": "externalTerminal",
-            "program": "${workspaceFolder}\\test-playground.js"
+            "program": "${workspaceFolder}\\test.js"
         }
     ]
 }

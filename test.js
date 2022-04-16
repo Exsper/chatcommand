@@ -74,4 +74,12 @@ data2 = ch5.run("!s2#catch exsper");
 if (data2.param.mode !== "catch exsper" || data2.param.user)
     throw "Error";
 
+ch5.del("s2");
+data = ch5.run("!s1#catch exsper");
+if (data.param.mode !== "catch" || data.param.user !== "exsper")
+    throw "Error";
+data2 = ch5.run("!s2#catch exsper");
+if (JSON.stringify(data2) !== "{}")
+    throw "Error";
+
 console.log("test pass!")
