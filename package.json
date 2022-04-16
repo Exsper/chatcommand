@@ -1,6 +1,6 @@
 {
   "name": "chatcommand",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "一套从聊天消息中获取指令和参数的框架",
   "main": "index.js",
   "directories": {

@@ -44,28 +44,61 @@ const {CommandHelper} = require("chatcommand");
 
 #### 说明
 
-CommandHelper构造函数具有3个参数，分别为
+CommandHelper构造函数具有4个参数，分别为
 
  - 指令前缀 可以为单个字符串，也可为字符串数组
+
 ```javascript
 let ch1 = new CommandHelper("!");
 let ch2 = new CommandHelper(["!", "！"]);
 ```
- - 帮助指令 字符串格式，显示具体指令的帮助，默认为```help```
+
+ - 额外参数 当有多个指令前缀时，给具体的指令加上指定的额外参数，如不需要该功能则设为[]
+
 ```javascript
-let ch3 = new CommandHelper(["!", "！"], "帮助");
+let ch1_1 = new CommandHelper(["!", "?"], [{ server: 1 }, { server: 2 }]);
+let ci1_1 = new CommandInfo("best", ["bp"], "bp列表", [param_user]);
+ch1_1.add(ci1_1);
+let data1 = ch1_1.run("!bp exsper");
+let data2 = ch1_1.run("?bp exsper");
+```
+
+```javascript
+data1 = {
+  server: 1,
+  type: 'best',
+  command: 'bp',
+  info: 'bp列表',
+  param: { user: 'exsper' }
+}
+data2 = {
+  server: 2,
+  type: 'best',
+  command: 'bp',
+  info: 'bp列表',
+  param: { user: 'exsper' }
+}
+```
+
+ - 帮助指令 字符串格式，显示具体指令的帮助，默认为```help```
+
+```javascript
+let ch3 = new CommandHelper(["!", "！"], [], "帮助");
 let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_user, param_mode]);
 ch3.add(ci);
 let data = ch3.run("！帮助 bind");
 console.log(data.help);
 ```
+
 ```javascript
 data.help = "绑定\n指令：bind/set/setid\n参数：user :mode"
 ```
+
 - 初始指令格式 为CommandInfo数组，可以省略该参数，后面用```add()```添加
+
 ```javascript
 let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_user, param_mode]);
-let ch4 = new CommandHelper(["!", "！"], "帮助", [ci]);
+let ch4 = new CommandHelper(["!", "！"], [], "帮助", [ci]);
 ```
 
 
@@ -132,15 +165,32 @@ const param_index = new Param("index", ["#", "＃"], dataType.integer);
 const param_user = new Param("user", [], dataType.string);
 ```
 
-Param构造函数具有3个参数，分别为
+也可以使用自定义参数
+
+```javascript
+let ci = new CommandInfo("score", ["score", "s"], "成绩");
+let p1 = new Param("beatmapid", "&", dataType.integer);
+ci.addParam([param_user, param_mode, param_mods, p1]);
+
+commandHelper.add(ci);
+let data = commandHelper.run("!s exsper &114514 :3 +HDDT");
+console.log(data.param);
+```
+
+```javascript
+data.param = { mode: 3, mods: 72, beatmapid: 114514, user: 'exsper' }
+```
+
+Param构造函数具有4个参数，分别为
 
  - 参数名称 字符串，该参数的名称
 
  - 参数前缀 字符串或字符串数组，无前缀请用""或[]，如果非单字节第一位必须要为符号
 
-一条指令最多只能有一个无前缀参数！
+一条指令最多只能有一个无前缀参数！无前缀参数请尽量放在末尾或最后一个导入
 
 特别的，如果你习惯于```key value```形式的参数，那也可以在这里使用，但是第一位必须要用符号
+
 ```javascript
 let ch4 = new CommandHelper(["!", "！"]);
 let ci4 = new CommandInfo("best", ["bp"], "bp");
@@ -174,21 +224,21 @@ dataType = {
 }
 ```
 
-你也可以使用自定义参数
+ - 以空格结束 这将使正则匹配改为非贪婪模式，一般情况下不建议使用
 
 ```javascript
-let ci = new CommandInfo("score", ["score", "s"], "成绩");
-let p1 = new Param("beatmapid", "&", dataType.integer);
-ci.addParam([param_user, param_mode, param_mods, p1]);
-
-
-commandHelper.add(ci);
-let data = commandHelper.run("!s exsper &114514 :3 +HDDT");
-console.log(data.param);
-```
-
-```javascript
-data.param = { mode: 3, mods: 72, beatmapid: 114514, user: 'exsper' }
+let ch5 = new CommandHelper(["!", "！"]);
+let ci5_1 = new CommandInfo("score1", ["score1", "s1"], "成绩");
+let ci5_2 = new CommandInfo("score2", ["score2", "s2"], "成绩");
+let p5_1 = new Param("mode", "#", dataType.string, true);
+let p5_2 = new Param("mode", "#", dataType.string, false);
+ci5_1.addParam([p5_1, param_user]);
+ci5_2.addParam([p5_2, param_user]);
+ch5.add([ci5_1, ci5_2]);
+data1 = ch5.run("!s1#catch exsper");
+// param: { mode: 'catch', user: 'exsper' }
+data2 = ch5.run("!s2#catch exsper");
+// param: { mode: 'catch exsper' }
 ```
 
 ## issue
