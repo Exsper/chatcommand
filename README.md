@@ -32,6 +32,8 @@ data = {
 }
 ```
 
+
+
 ### 指令管理器 CommandHelper
 
 #### 引用
@@ -66,6 +68,8 @@ let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [par
 let ch4 = new CommandHelper(["!", "！"], "帮助", [ci]);
 ```
 
+
+
 ### 指令格式 CommandInfo
 
 #### 引用
@@ -96,6 +100,8 @@ ci.addParam([param_user, param_mode]);
 // 或者
 ci.addParam(param_user).addParam(param_mode);
 ```
+
+
 
 ### Param 参数格式
 
@@ -163,7 +169,7 @@ console.log(data.param);
 ```
 
 ```javascript
-    data.param = { mode: 3, mods: 72, beatmapid: 114514, user: 'exsper' }
+data.param = { mode: 3, mods: 72, beatmapid: 114514, user: 'exsper' }
 ```
 
 ## issue
