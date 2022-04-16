@@ -1,0 +1,14 @@
+{
+  "name": "chatcommand",
+  "version": "1.0.0",
+  "description": "一套从聊天消息中获取指令和参数的框架",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Exsper",
+  "license": "MIT"
+}
