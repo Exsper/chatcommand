@@ -136,9 +136,28 @@ Param构造函数具有3个参数，分别为
 
  - 参数名称 字符串，该参数的名称
 
- - 参数前缀 字符串或字符串数组，一定要为符号，不要用字母或数字，无前缀请用""或[]
+ - 参数前缀 字符串或字符串数组，无前缀请用""或[]，如果非单字节第一位必须要为符号
 
 一条指令最多只能有一个无前缀参数！
+
+特别的，如果你习惯于```key value```形式的参数，那也可以在这里使用，但是第一位必须要用符号
+```javascript
+let ch4 = new CommandHelper(["!", "！"]);
+let ci4 = new CommandInfo("best", ["bp"], "bp");
+let p4_1 = new Param("from", ["@from", "@start"], dataType.date);
+let p4_2 = new Param("to", ["@to", "@end"], dataType.date);
+ci4.addParam([param_user, param_mode, p4_1, p4_2]);
+ch4.add(ci4);
+data = ch4.run("!bp exsper @from 2012-12-12 @end 2222-2-22");
+```
+
+```javascript
+data.param = {
+  from: 2012-12-12T00:00:00.000Z,
+  to: 2222-02-21T16:00:00.000Z,
+  user: 'exsper'
+}
+```
 
  - 数据格式 获取到参数后需要对其进行格式转换
 
