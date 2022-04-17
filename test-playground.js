@@ -15,8 +15,8 @@ let to = new Param("to", ["@to", "@end"], dataType.date);
 let last = new Param("last", "@last", dataType.integer);
 ch1.add(new CommandInfo("best", ["best", "bp"], "最好成绩", [new Param("index", "", dataType.integer, true), from, to, last, param_index, param_user]));
 ch1.add(new CommandInfo("score", ["score", "s"], "查询成绩", [param_user]));
-ch1.add(new CommandInfo("bind", ["setUser"], "绑定账号", [param_user]));
-ch1.add(new CommandInfo("bindMode", ["setMode"], "绑定", [new Param("mode", "", dataType.string)]));
+ch1.add(new CommandInfo("bind", ["setuser"], "绑定账号", [param_user]));
+ch1.add(new CommandInfo("bindmode", ["setmode"], "绑定", [new Param("mode", "", dataType.string)]));
 
 function prpr(text) {
     console.log(text);
@@ -31,4 +31,4 @@ prpr("?bp @last 24 arily");
 prpr("?bp @from 2022-12-30 @to 2024-12-12 1123053");
 prpr("!!score 12345");
 prpr("!!setUser arilychan");
-prpr("!!setMode osurx");
+prpr("!!setmOde osurx");

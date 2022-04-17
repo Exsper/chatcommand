@@ -12,23 +12,23 @@ let dataType = require("./index").dataType;
 let ch1 = new CommandHelper(["!", "！"]);
 let ci1 = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_mode, param_user]);
 ch1.add(ci1);
-let data = ch1.run("！bind Exsper:3");
+let data = ch1.run("！biNd Exsper:3");
 if (data.type !== "bindaccount" || data.command !== "bind" || data.info !== "绑定" || data.param.mode !== 3 || data.param.user !== "Exsper")
     throw "Error";
 
 let ci2 = new CommandInfo("recent", ["recent", "re"], "显示最近成绩", [param_user, param_mode, param_index]);
 let ch2 = new CommandHelper(["!", "！"], [], "help", [ci2]);
-data = ch2.run("! re  exsper  :1   #2 ");
-if (data.type !== "recent" || data.command !== "re" || data.info !== "显示最近成绩" || data.param.mode !== 1 || data.param.user !== "exsper" || data.param.index !== 2)
+data = ch2.run("! Re  exSper  :1   #2 ");
+if (data.type !== "recent" || data.command !== "re" || data.info !== "显示最近成绩" || data.param.mode !== 1 || data.param.user !== "exSper" || data.param.index !== 2)
     throw "Error";
-data = ch2.run(" ! help  recent ");
+data = ch2.run(" ! heLp  recent ");
 if (!data.help || data.help !== "显示最近成绩\n指令：recent/re\n参数：user :mode #index")
     throw "Error";
 
-data = ch2.run(" !unknown command");
+data = ch2.run(" !unkNown command");
 if (JSON.stringify(data) !== "{}")
     throw "Error";
-data = ch2.run(" !help unknown command");
+data = ch2.run(" !hElp unknown command");
 if (JSON.stringify(data) === "{}" || data.help !== "未找到该指令")
     throw "Error";
 
@@ -53,8 +53,8 @@ ch4.add(ci4);
 data = ch4.run("!bp exsper @from 2012-12-12 @end 2222-2-22");
 if (data.param.from.toString() !== new Date("2012-12-12").toString() || data.param.to.toString() !== new Date("2222-2-22").toString())
     throw "Error";
-let data2 = ch4.run("!bp kk");
-let data3 = ch4.run("?bp kk");
+let data2 = ch4.run("!bP kk");
+let data3 = ch4.run("?Bp kk");
 if (data2.server !== 1 || data3.server !== 2)
     throw "Error";
 
@@ -70,12 +70,12 @@ ch5.add([ci5_1, ci5_2]);
 data = ch5.run("!s1#catch exsper");
 if (data.param.mode !== "catch" || data.param.user !== "exsper")
     throw "Error";
-data2 = ch5.run("!s2#catch exsper");
+data2 = ch5.run("!S2#catch exsper");
 if (data2.param.mode !== "catch exsper" || data2.param.user)
     throw "Error";
 
 ch5.del("s2");
-data = ch5.run("!s1#catch exsper");
+data = ch5.run("!S1#catch exsper");
 if (data.param.mode !== "catch" || data.param.user !== "exsper")
     throw "Error";
 data2 = ch5.run("!s2#catch exsper");
