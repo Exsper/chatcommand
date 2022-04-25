@@ -1,5 +1,5 @@
 {
-  "name": "@exsper/chatcommand",
+  "name": "chatcommand",
   "version": "1.3.0",
   "description": "一套从聊天消息中获取指令和参数的框架",
   "main": "index.js",
