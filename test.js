@@ -10,19 +10,29 @@ let dataType = require("./index").dataType;
 
 
 let ch1 = new CommandHelper(["!", "！"]);
-let ci1 = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_mode, param_user]);
+let ci1 = new CommandInfo("bindaccount", ["bind", "set", "setid"], ["绑定", "绑定你的账号", "不会向他人透露"], [param_mode, param_user]);
 ch1.add(ci1);
 let data = ch1.run("！biNd Exsper:3");
-if (data.type !== "bindaccount" || data.command !== "bind" || data.info !== "绑定" || data.param.mode !== 3 || data.param.user !== "Exsper")
+if (data.type !== "bindaccount" || data.command !== "bind" || data.info[0] !== "绑定" || data.param.mode !== 3 || data.param.user !== "Exsper")
+    throw "Error";
+data = ch1.run(" !hElp setid");
+if (JSON.stringify(data) === "{}" || data.help !== "绑定\n指令：bind/set/setid\n参数：:mode/user\n绑定你的账号\n不会向他人透露")
+    throw "Error";
+ch1.add(new CommandInfo("score", ["score", "s"], "查询成绩", [param_user]));
+data = ch1.run(" !hElp");
+if (JSON.stringify(data) === "{}" || data.help !== "指令列表：\nbind\nscore\n输入 help + 指令名称 查看具体指令帮助")
     throw "Error";
 
 let ci2 = new CommandInfo("recent", ["recent", "re"], "显示最近成绩", [param_user, param_mode, param_index]);
-let ch2 = new CommandHelper(["!", "！"], [], "help", [ci2]);
+let ch2 = new CommandHelper(["!", "！"], [], ["help", "在官网上有详细说明文档", "懒~"], [ci2]);
 data = ch2.run("! Re  exSper  :1   #2 ");
-if (data.type !== "recent" || data.command !== "re" || data.info !== "显示最近成绩" || data.param.mode !== 1 || data.param.user !== "exSper" || data.param.index !== 2)
+if (data.type !== "recent" || data.command !== "re" || data.info[0] !== "显示最近成绩" || data.param.mode !== 1 || data.param.user !== "exSper" || data.param.index !== 2)
     throw "Error";
 data = ch2.run(" ! heLp  recent ");
-if (!data.help || data.help !== "显示最近成绩\n指令：recent/re\n参数：user :mode #index")
+if (!data.help || data.help !== "显示最近成绩\n指令：recent/re\n参数：user/:mode/#index")
+    throw "Error";
+data = ch2.run(" ! heLp ");
+if (!data.help || data.help !== "在官网上有详细说明文档\n懒~")
     throw "Error";
 
 data = ch2.run(" !unkNown command");
@@ -83,3 +93,5 @@ if (JSON.stringify(data2) !== "{}")
     throw "Error";
 
 console.log("test pass!")
+
+

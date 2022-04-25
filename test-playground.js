@@ -16,7 +16,7 @@ let last = new Param("last", "@last", dataType.integer);
 ch1.add(new CommandInfo("best", ["best", "bp"], "最好成绩", [new Param("index", "", dataType.integer, true), from, to, last, param_index, param_user]));
 ch1.add(new CommandInfo("score", ["score", "s"], "查询成绩", [param_user]));
 ch1.add(new CommandInfo("bind", ["setuser"], "绑定账号", [param_user]));
-ch1.add(new CommandInfo("bindmode", ["setmode"], "绑定", [new Param("mode", "", dataType.string)]));
+ch1.add(new CommandInfo("bindmode", ["setmode"], ["绑定", "osu=0,taiko=1,catch=2,mania=3"], [new Param("mode", "", dataType.string)]));
 
 function prpr(text) {
     console.log(text);
@@ -32,3 +32,18 @@ prpr("?bp @from 2022-12-30 @to 2024-12-12 1123053");
 prpr("!!score 12345");
 prpr("!!setUser arilychan");
 prpr("!!setmOde osurx");
+prpr("!!help setmode");
+prpr("!!help");
+
+let ch3 = new CommandHelper(["!", "！"], [], "帮助");
+let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_user, param_mode]);
+ch3.add(ci);
+let data = ch3.run("！帮助 bind");
+console.log(data.help);
+
+let data2 = ch3.run("！帮助");
+console.log(data2.help);
+
+let ch3_1 = new CommandHelper(["!", "！"], [], ["帮助", "去官网查吧", "我懒"]);
+let data2_1 = ch3_1.run("！帮助");
+console.log(data2_1.help);

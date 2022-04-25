@@ -80,7 +80,11 @@ data2 = {
 }
 ```
 
- - 帮助指令 字符串格式，显示具体指令的帮助，默认为```help```
+ - 帮助指令 字符串或字符串数组，用于显示具体指令的帮助，默认为```["help"]```
+
+如果是字符串形式，则其为帮助指令，返回指令列表
+
+如果是数组形式，则其中第一个元素为帮助指令，其他元素作为返回信息
 
 ```javascript
 let ch3 = new CommandHelper(["!", "！"], [], "帮助");
@@ -88,10 +92,19 @@ let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [par
 ch3.add(ci);
 let data = ch3.run("！帮助 bind");
 console.log(data.help);
+
+let data2 = ch3.run("！帮助");
+console.log(data2.help);
+
+let ch3_1 = new CommandHelper(["!", "！"], [], ["帮助", "去官网查吧", "我懒"]);
+let data2_1 = ch3_1.run("！帮助");
+console.log(data2_1.help);
 ```
 
 ```javascript
-data.help = "绑定\n指令：bind/set/setid\n参数：user :mode"
+data.help = "绑定\n指令：bind/set/setid\n参数：user/:mode"
+data2.help = "指令列表：\nbind\n输入 help + 指令名称 查看具体指令帮助"
+data2_1.help = "去官网查吧\n我懒"
 ```
 
 - 初始指令格式 为CommandInfo数组，可以省略该参数，后面用```add()```添加
@@ -141,7 +154,14 @@ let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [par
 
  - 指令名称 字符串或字符串数组，这是指令主体
 
- - 指令说明 帮助里会用到
+ - 指令说明 字符串或字符串数组，帮助里会用到
+
+如果是数组形式，则其中第一个元素为说明标题，其他元素将作为额外说明被添加到说明末尾
+
+```javascript
+let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"],
+           ["绑定", "允许的mode：osu=0/taiko=1/catch=2/mania=3"]);
+```
 
  - 指令参数 为Param数组，可以省略该参数，后面用```addParam()```添加
 
