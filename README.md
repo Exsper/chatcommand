@@ -114,20 +114,35 @@ let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [par
 let ch4 = new CommandHelper(["!", "！"], [], "帮助", [ci]);
 ```
 
-### 添加和删除指令
+### 指令管理
 
-```add()```添加指令
+- ```add()```添加指令（默认直接启用）
 
-```del()```删除指令（参数为指令格式中的一种指令字符串）
+- ```del()```删除指令（参数为指令格式中的一种指令字符串）
+
+- ```enableCi()```启用指令（参数为指令格式中的一种指令字符串）
+
+- ```disableCi()```停用指令（参数为指令格式中的一种指令字符串）
 
 ```javascript
 let ch3 = new CommandHelper(["!", "！"], [], "帮助");
 let ci = new CommandInfo("bindaccount", ["bind", "set", "setid"], "绑定", [param_user, param_mode]);
+
 // 添加指令
 ch3.add(ci);
 // 删除指令
 ch3.del("set");
-// !bind和!setid也不再可用
+// !set、!bind和!setid指令被永久删除
+
+// 重新添加指令
+ch3.add(ci);
+// 停用指令
+ch3.disableCi("set");
+// !set、!bind和!setid指令被停用
+
+// 启用指令
+ch3.enableCi("set");
+// !set、!bind和!setid指令又可以使用了
 ```
 
 

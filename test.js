@@ -92,6 +92,19 @@ data2 = ch5.run("!s2#catch exsper");
 if (JSON.stringify(data2) !== "{}")
     throw "Error";
 
+ch5.add(ci5_2);
+data2 = ch5.run("!s2#catch exsper");
+if (data.param.mode !== "catch" || data.param.user !== "exsper")
+    throw "Error";
+ch5.disableCi("s2");
+data2 = ch5.run("!score2#catch exsper");
+if (JSON.stringify(data2) !== "{}")
+    throw "Error";
+ch5.enableCi("score2");
+data2 = ch5.run("!s2#catch exsper");
+if (data.param.mode !== "catch" || data.param.user !== "exsper")
+    throw "Error";
+
 console.log("test pass!")
 
 
